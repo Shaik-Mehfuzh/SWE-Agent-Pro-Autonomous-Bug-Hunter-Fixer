@@ -1,0 +1,6 @@
+{
+  "name": "SWE-Agent Pro — Autonomous Bug Hunter & Fixer",
+  "description": "Autonomous AI software engineering system featuring structured issue understanding, hypothesis-driven codebase investigation, sandboxed testing, bounded self-repair, regression protection, and an interactive engineering dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

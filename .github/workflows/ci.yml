@@ -1,0 +1,40 @@
+name: SWE-Agent Pro CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Type check frontend & backend
+        run: npm run lint
+
+      - name: Run Python Unit Test Suite (All 7 Features)
+        run: python3 -m unittest discover -s tests -p "test_*.py"
+
+      - name: Run Reproducible Benchmark Gate
+        run: python3 -m sweagent_pro.cli eval --max-issues 2
+
+      - name: Build Dashboard Applet
+        run: npm run build
